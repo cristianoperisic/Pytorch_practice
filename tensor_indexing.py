@@ -114,3 +114,46 @@ plt.show()
 a = torch.tensor([[1, 2, 3], [4, 5, 6]])
 A = a[torch.tensor([[0, 1], [1, 1]])]
 # A와 같은 것을 리스트로 인덱싱을 통해 얻으려면?
+# [[[1,2,3],[4,5,6]],[[4,5,6],[4,5,6]]]
+
+# 최종 정리
+A = torch.tensor([[1, 2, 6], [3, 4, 7], [5, 6, 2], [7, 8, 9]])
+print(A)
+print(A.shape)
+
+# 1. A[몇 번째 행이냐, 몇 번째 열이냐]
+print(A[0, 1])
+# 2-1. A[[몇번째 행이냐, 몇번째 행이냐],[몇 번째 열이냐, 몇 번째 열이냐]]
+print(A[[0, 2, 3, 1, 2], [1, 1, 0, 0, 0]])
+# 2-2. A[[[몇 번째 행이냐], [몇 번째 행이냐]],[[몇 번째 열이냐],[몇 번째 열이냐]]] --> 결과가 행렬 형태가 되도록 인덱싱!
+print(A[[[0, 2], [3, 1]], [[0, 2], [1, 0]]])
+# 3. A[ tensor(bool) ] --> A와 같은 shape을 가지는 tensor형 bool이 어디에 True를 가지고 있냐
+print(
+    A[
+        torch.tensor(
+            [
+                [False, True, True],
+                [False, False, False],
+                [False, False, True],
+                [False, True, False],
+            ]
+        )
+    ]
+)
+print(A[A == 2])  # 마스킹같은 걸 할 수 있음
+# 4. A[몇 번째 값에 True가 있냐, 몇 번째 값에 True가 있냐]
+print(A[[True, False, False, False], [False, True, True]])
+# 5. A[tensor] --> 몇 번째 것을 어떻게 쌓을거냐
+print(
+    A[
+        torch.tensor(
+            [
+                1,
+                1,
+                2,
+                2,
+                2,
+            ]
+        )
+    ]
+)
